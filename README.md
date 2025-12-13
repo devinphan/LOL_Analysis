@@ -149,15 +149,6 @@ The model's ability to generalize was evaluated using a **70/30 train-test split
 | **Hold-Out Test Set** | **0.674** | Final performance on completely unseen data. |
 | **Majority Class Baseline** | 0.512 | Accuracy if always predicting the most frequent class (`Win`). |
 
-### Is This Model "Good"? An Evaluation
-
-The baseline model is **effective as a benchmark but not sufficient as a final solution**.
-
-*   **Why it works as a baseline**: It achieves a **~17% improvement** over the simple majority class baseline (0.674 vs. 0.512). This confirms that the chosen early-game features have genuine predictive power for the match outcome. The close agreement between cross-validation and test set scores suggests the model is not severely overfitting.
-*   **Why it is not "good" enough**: An accuracy of **~67%** leaves significant room for improvement. In practice, this means about one in every three predictions is incorrect. The model's linear nature likely fails to capture more complex, non-linear interactions between game metrics (e.g., how a gold lead combined with a specific objective changes win probability).
-
-**Conclusion**: This baseline successfully establishes a reasonable starting point. Its performance validates our problem framing and feature selection, but clearly indicates the need for more sophisticated feature engineering and non-linear modeling in the final model to achieve a stronger predictive performance.
-
 ## Final Model
 
 ### Overview & Objective
