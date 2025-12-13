@@ -248,21 +248,8 @@ This section presents a fairness evaluation of the final Random Forest model. Th
 - **Observed Test Statistic (Difference):** 0.07
 - **p-value:** 0.124
 
-**Visualization of Null Distribution:**
-<iframe
-  src="assets/fairness_permutation_test.html"
-  width="100%"
-  height="500"
-  frameborder="0">
-</iframe>
-*Figure: Null distribution of the difference in precision (Major - Minor) under permutation. The red line indicates the observed difference of 0.07.*
 
 ### Conclusion
-The p-value of **0.124** is greater than the significance level of **α = 0.05**. Therefore, we **fail to reject the null hypothesis**.
+The p-value of **0.124** is greater than the significance level of **α = 0.05**. Therefore, we **fail to reject the null hypothesis**. There is insufficient statistical evidence to conclude that the final model is unfair with respect to regional precision. The observed difference in precision (7 percentage points) is not large enough to be deemed statistically significant given the variation present in the data. This suggests that, for this specific model and evaluation metric, performance did not degrade substantially when applied to matches from less dominant competitive regions.
 
-**Interpretation:** There is insufficient statistical evidence to conclude that the final model is unfair with respect to regional precision. The observed difference in precision (7 percentage points) is not large enough to be deemed statistically significant given the variation present in the data. This suggests that, for this specific model and evaluation metric, performance did not degrade substantially when applied to matches from less dominant competitive regions.
 
-**Limitations & Nuance:**
-1.  While the result is favorable, **"failing to reject" is not proof of fairness**. A larger sample size might reveal a smaller, yet systematic, bias.
-2.  This analysis only examined **precision**. A comprehensive fairness audit would require testing other metrics (e.g., recall, F1-score, false positive rate) across other sensitive groupings (e.g., specific teams, patches, or blue vs. red side).
-3.  The observed numeric difference, while not statistically significant, may still have practical implications for users who rely heavily on the model's predictions for minor region analysis.
