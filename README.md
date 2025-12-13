@@ -232,7 +232,6 @@ This section presents a fairness evaluation of the final Random Forest model. Th
   - **Alternative Hypothesis (H₁):** The model is unfair. Its precision for matches in **Minor Regions (NLC/LVP SL)** is **lower** than its precision for matches in **Major Regions (LCK/LPL)**.
     - *Formally: P_minor < P_major* (One-sided test)
 
-### Test Design
 - **Test Statistic:** Difference in Group Precision (Precision_Major - Precision_Minor).
 - **Significance Level (α):** 0.05
 - **Test Type:** One-sided permutation test (10,000 permutations).
