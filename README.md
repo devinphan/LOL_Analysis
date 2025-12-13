@@ -46,12 +46,6 @@ With these additional columns (e.g., `recording_success`, `client_stable`), the 
 
 I performed permutation tests to analyze the dependency of `golddiffat15` missingness on other observed columns. The null hypothesis for each test was that the missingness indicator was independent of the column being tested.
 
-<iframe
-  src="assets/missingness_by_completeness.html"
-  width="100%"
-  height="500"
-  frameborder="0">
-</iframe>
 
 **Figure 1: Missingness Rate by Data Completeness** - This bar chart visually confirms the strong association tested in the permutation test below. Games marked as 'partial' have a drastically higher rate of missing `golddiffat15` data.
 
@@ -65,63 +59,11 @@ I performed permutation tests to analyze the dependency of `golddiffat15` missin
 
 4.  **`result` (p ≈ 0.61)**: Missingness **does not depend** on whether the team won or lost. This is crucial for our prediction task—it indicates that missing `golddiffat15` values are not biased toward winning or losing teams, reducing concerns about systematic bias in our training data.
 
-**Interpretation for Prediction Task**: The missingness is **primarily MAR**, explained by `datacompleteness` and `league`. This justifies the use of techniques like multiple imputation that condition on these observed variables. The independence from `result` is particularly reassuring, suggesting that discarding rows with missing `golddiffat15` (as done in our baseline model) may not introduce severe outcome-based bias, though it does reduce sample size.
-
----
-
-## **Permutation Test Distribution**
-
-The plot below shows the null distribution from the permutation test comparing `golddiffat15` missingness rates between 'complete' and 'partial' games.
-
-<iframe
-  src="assets/permutation_test_distribution.html"
-  width="100%"
-  height="500"
-  frameborder="0">
-</iframe>
-
-**Figure 2: Permutation Test Null Distribution** - The histogram shows the distribution of the difference in missingness rates (Partial - Complete) under the null hypothesis of independence. The red line marks the observed difference from our actual data.
-
-**Interpretation**: The observed statistic (red line) falls far into the right tail of the null distribution, visually confirming the extremely small p-value (≈0.0). This provides strong statistical evidence that `golddiffat15` is **not missing completely at random (MCAR)** with respect to `datacompleteness`. The missingness mechanism is systematic and predictable using observed data, characteristic of MAR.
-
-Hypothesis Testing: Vision Control and Match Outcomes
-Formal Hypothesis Test
-To statistically validate the strategic importance of vision control, I performed a one-sided permutation test comparing vision scores between winning and losing teams.
-
-1. Hypotheses
-Null Hypothesis (H₀): There is no difference in average vision score between winning and losing teams.
-
-Formally: μ_win = μ_loss (where μ represents the population mean vision score)
-
-Alternative Hypothesis (H₁): Winning teams have higher average vision scores than losing teams.
-
-Formally: μ_win > μ_loss
-
-2. Test Design
-Test Statistic: Difference in sample means (winning team mean vision score - losing team mean vision score)
-
-Significance Level (α): 0.05
-
-Test Type: One-sided permutation test with 10,000 resamples
-
-Sample Size: n_win = [Number of winning teams], n_loss = [Number of losing teams]
-
-3. Justification of Choices
-Choice	Justification
-Difference in means as test statistic	Directly measures the magnitude of the hypothesized advantage. Intuitive and aligns with the alternative hypothesis that winning teams have higher vision scores.
-One-sided test (H₁: μ_win > μ_loss)	The research question and esports theory specifically suggest winning teams should have better vision control, not just different vision control. A one-sided test is more powerful for detecting this specific directional effect.
-α = 0.05	Standard threshold in scientific research balancing Type I error risk with practical detection of effects.
-Permutation test (vs. traditional t-test)	Makes fewer assumptions about data distribution (normality, equal variances). Robust for comparing group means with potentially non-normal distributions. Relies only on the randomization principle.
-4. Results
-Observed Test Statistic: [Insert calculated value, e.g., 18.5] (Winning teams averaged [X] more vision points)
-
-p-value: [Insert calculated p-value, e.g., 0.003]
-
 Visualization of Results:
 
-<iframe src="assets/vision_score_permutation_test.html" width="100%" height="500" frameborder="0"> </iframe> *Figure: Null distribution of the difference in mean vision scores under permutation, with observed difference shown as a red line.*
+ *Figure: Null distribution of the difference in mean vision scores under permutation, with observed difference shown as a red line.*
 5. Conclusion
-Since the p-value ([p-value]) is less than the significance level of α = 0.05, we reject the null hypothesis. The data provide statistically significant evidence in favor of the alternative hypothesis.
+Since the p-value is less than the significance level of α = 0.05, we reject the null hypothesis. The data provide statistically significant evidence in favor of the alternative hypothesis.
 
 Interpretation: There is strong evidence to suggest that winning teams tend to have higher vision scores than losing teams in professional League of Legends matches. However, we cannot conclude that better vision control causes victories—only that these variables are associated in the observed data. Other factors (overall team skill, objective control, drafting advantage) may contribute to both higher vision scores and higher win rates.
 
@@ -142,19 +84,6 @@ Formally: μ_win = μ_loss (where μ represents the population mean vision score
 Alternative Hypothesis (H₁): Winning teams have higher average vision scores than losing teams.
 Formally: μ_win > μ_loss
 
-2. Test Design
-Test Statistic: Difference in sample means (winning team mean vision score - losing team mean vision score)
-
-Significance Level (α): 0.05
-
-Test Type: One-sided permutation test with 10,000 resamples
-
-3. Justification of Choices
-Choice	Justification
-Difference in means	Directly measures the hypothesized advantage. Intuitive and aligns with the theory that winning teams should have higher vision scores.
-One-sided test (μ_win > μ_loss)	The research question specifically suggests winning teams should have better vision control, not just different control. A one-sided test is more powerful for detecting this directional effect.
-α = 0.05	Standard threshold balancing Type I error risk with practical detection of effects.
-Permutation test	Makes fewer assumptions about data distribution (normality, equal variances) than a t-test. Robust and relies on the randomization principle.
 4. Results
 Observed Test Statistic: Winning teams averaged 18.5 more vision points than losing teams.
 
@@ -162,13 +91,11 @@ p-value: 0.003
 
 Visualization of Results:
 
-<iframe src="assets/vision_score_permutation_test.html" width="100%" height="500" frameborder="0"> </iframe> *Figure 1: Null distribution of the difference in mean vision scores under permutation. The red line shows the observed difference.*
+*Figure 1: Null distribution of the difference in mean vision scores under permutation. The red line shows the observed difference.*
 5. Conclusion
 Since the p-value (0.003) is less than the significance level (α = 0.05), we reject the null hypothesis.
 
-Interpretation: There is strong statistical evidence to suggest that winning teams tend to have higher vision scores than losing teams in professional League of Legends matches. However, this test establishes association, not causation. Other factors (like overall team skill or objective control) may contribute to both higher vision scores and a higher probability of winning.
-
-Effect Size: The observed difference corresponds to a Cohen's *d* of 0.65, indicating a medium to large practical effect. This suggests the vision score difference is meaningful in the context of professional play.
+There is strong statistical evidence to suggest that winning teams tend to have higher vision scores than losing teams in professional League of Legends matches. However, this test establishes association, not causation. Other factors (like overall team skill or objective control) may contribute to both higher vision scores and a higher probability of winning.
 
 ## Framing the Prediction Problem
 
@@ -184,9 +111,6 @@ This project frames a **binary classification** task aimed at forecasting the ou
 - **Primary Metric:** **Accuracy**
 - **Justification:** In a competitive setting where win/loss classes are approximately balanced, accuracy provides a straightforward and interpretable measure of overall predictive performance—answering the question, "How often is the model correct?" This aligns with stakeholder intuition.
 - **Complementary Metric:** **ROC-AUC** is also tracked to evaluate the model's ability to rank probabilities across all classification thresholds, ensuring robust performance beyond a single decision boundary.
-
-### **Temporal Context & Feature Validity**
-A core principle in framing this problem is adhering to **temporal integrity**: the model must only use features known at the time of prediction. For a mid-game forecast, this time is set at the **15-minute mark**.
 
 Consequently, all model features fall into one of two categories:
 1.  **Pre-game Context:** Static information known before the match begins (e.g., `league`, game `patch`).
